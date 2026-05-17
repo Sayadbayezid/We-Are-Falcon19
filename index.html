@@ -14,7 +14,7 @@
         }
 
         body {
-            background-color: #121212; /* Dark Sports Theme */
+            background-color: #121212;
             color: #ffffff;
         }
 
@@ -25,7 +25,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid #ffcc00; /* Yellow accent */
+            border-bottom: 3px solid #ffcc00;
         }
 
         .logo-container {
@@ -198,10 +198,11 @@
             border-radius: 5px;
             font-size: 14px;
             transition: background 0.3s;
+            border: none;
+            cursor: pointer;
         }
         .profile-btn:hover {
             background: #e6b800;
-            text-decoration: none;
         }
 
         /* Footer Styling */
@@ -232,6 +233,108 @@
             margin-top: 10px;
             font-size: 13px;
             color: #777777;
+        }
+
+        /* ========== POPUP MODAL CSS ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #1f1f1f;
+            margin: 5% auto;
+            padding: 40px 20px;
+            border: 2px solid #ffcc00;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 30px rgba(255, 204, 0, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #aaaaaa;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #ffcc00;
+        }
+
+        .modal-photo {
+            width: 120px;
+            height: 120px;
+            background-color: #333;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #ffcc00;
+            color: #777;
+        }
+
+        .modal h1 { color: #ffcc00; margin-bottom: 10px; font-size: 28px; text-transform: uppercase; }
+        .modal p { color: #ccc; margin-bottom: 10px; font-size: 16px; }
+
+        /* Share Button inside Modal */
+        .share-btn {
+            background-color: #333;
+            color: #ffcc00;
+            border: 1px solid #ffcc00;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .share-btn:hover {
+            background-color: #ffcc00;
+            color: #121212;
+        }
+
+        /* Rating System inside Modal */
+        .rating-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+        .rating-section h3 { margin-bottom: 10px; font-size: 18px; color: #fff; }
+        
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-direction: row-reverse;
+        }
+        .stars input { display: none; }
+        .stars label {
+            font-size: 35px;
+            color: #444;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .stars label:hover,
+        .stars label:hover ~ label,
+        .stars input:checked ~ label {
+            color: #ffcc00;
         }
     </style>
 </head>
@@ -272,7 +375,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#30</span><br>
-                    <a href="profile.html?player=NAZMUL" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('NAZMUL', 'L', '30')">View Profile</button>
                 </div>
             </div>
             
@@ -283,7 +386,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#10</span><br>
-                    <a href="profile.html?player=RAKIB" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('RAKIB', 'L', '10')">View Profile</button>
                 </div>
             </div>
 
@@ -294,7 +397,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#19</span><br>
-                    <a href="profile.html?player=SAGOR" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SAGOR', 'L', '19')">View Profile</button>
                 </div>
             </div>
 
@@ -305,7 +408,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#20</span><br>
-                    <a href="profile.html?player=SHOHAG" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SHOHAG', 'L', '20')">View Profile</button>
                 </div>
             </div>
 
@@ -316,18 +419,18 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#7</span><br>
-                    <a href="profile.html?player=SHARIF" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SHARIF', 'L', '7')">View Profile</button>
                 </div>
             </div>
 
             <div class="player-card">
                 <div class="player-image">[Photo Pending]</div>
                 <div class="player-info">
-                    <h3>RAKIB</h3>
+                    <h3>RAKIB 13</h3>
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#13</span><br>
-                    <a href="profile.html?player=RAKIB" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('RAKIB 13', 'L', '13')">View Profile</button>
                 </div>
             </div>
 
@@ -338,7 +441,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#10</span><br>
-                    <a href="profile.html?player=MASUD" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('MASUD', 'L', '10')">View Profile</button>
                 </div>
             </div>
 
@@ -349,7 +452,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#28</span><br>
-                    <a href="profile.html?player=HIMEL" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('HIMEL', 'L', '28')">View Profile</button>
                 </div>
             </div>
 
@@ -360,7 +463,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#11</span><br>
-                    <a href="profile.html?player=ASIF JR" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('ASIF JR', 'L', '11')">View Profile</button>
                 </div>
             </div>
 
@@ -371,7 +474,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#15</span><br>
-                    <a href="profile.html?player=BAYXED" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('BAYXED', 'L', '15')">View Profile</button>
                 </div>
             </div>
 
@@ -382,7 +485,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#8</span><br>
-                    <a href="profile.html?player=MARUF" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('MARUF', 'L', '8')">View Profile</button>
                 </div>
             </div>
 
@@ -393,7 +496,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#4</span><br>
-                    <a href="profile.html?player=RS RIPON" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('RS RIPON', 'L', '4')">View Profile</button>
                 </div>
             </div>
 
@@ -404,7 +507,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#22</span><br>
-                    <a href="profile.html?player=SOHIDUL" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SOHIDUL', 'L', '22')">View Profile</button>
                 </div>
             </div>
 
@@ -415,7 +518,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#18</span><br>
-                    <a href="profile.html?player=SIAM" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SIAM', 'L', '18')">View Profile</button>
                 </div>
             </div>
 
@@ -426,7 +529,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: L</span>
                     <span class="jersey-number">#7</span><br>
-                    <a href="profile.html?player=SADIQ" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SADIQ', 'L', '7')">View Profile</button>
                 </div>
             </div>
 
@@ -437,7 +540,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: M</span>
                     <span class="jersey-number">#85</span><br>
-                    <a href="profile.html?player=G RABBY" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('G RABBY', 'M', '85')">View Profile</button>
                 </div>
             </div>
 
@@ -448,7 +551,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: M</span>
                     <span class="jersey-number">#7</span><br>
-                    <a href="profile.html?player=SK MASUD" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SK MASUD', 'M', '7')">View Profile</button>
                 </div>
             </div>
 
@@ -459,7 +562,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: M</span>
                     <span class="jersey-number">#27</span><br>
-                    <a href="profile.html?player=RABBY HR" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('RABBY HR', 'M', '27')">View Profile</button>
                 </div>
             </div>
 
@@ -470,7 +573,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: M</span>
                     <span class="jersey-number">#10</span><br>
-                    <a href="profile.html?player=BB" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('BB', 'M', '10')">View Profile</button>
                 </div>
             </div>
 
@@ -481,7 +584,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#010</span><br>
-                    <a href="profile.html?player=RAFIN" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('RAFIN', 'XL', '010')">View Profile</button>
                 </div>
             </div>
 
@@ -492,7 +595,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#8</span><br>
-                    <a href="profile.html?player=SHAMIM" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SHAMIM', 'XL', '8')">View Profile</button>
                 </div>
             </div>
 
@@ -503,7 +606,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#35</span><br>
-                    <a href="profile.html?player=RUBEL" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('RUBEL', 'XL', '35')">View Profile</button>
                 </div>
             </div>
 
@@ -514,7 +617,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#00</span><br>
-                    <a href="profile.html?player=JUBAYER" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('JUBAYER', 'XL', '00')">View Profile</button>
                 </div>
             </div>
 
@@ -525,7 +628,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#9</span><br>
-                    <a href="profile.html?player=ABID" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('ABID', 'XL', '9')">View Profile</button>
                 </div>
             </div>
 
@@ -536,7 +639,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#2</span><br>
-                    <a href="profile.html?player=JM JONY" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('JM JONY', 'XL', '2')">View Profile</button>
                 </div>
             </div>
 
@@ -547,7 +650,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#75</span><br>
-                    <a href="profile.html?player=SAZIB" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SAZIB', 'XL', '75')">View Profile</button>
                 </div>
             </div>
 
@@ -558,18 +661,18 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#3</span><br>
-                    <a href="profile.html?player=SHAHED" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SHAHED', 'XL', '3')">View Profile</button>
                 </div>
             </div>
 
             <div class="player-card">
                 <div class="player-image">[Photo Pending]</div>
                 <div class="player-info">
-                    <h3>RUBEL (4)</h3>
+                    <h3>RUBEL 4</h3>
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#4</span><br>
-                    <a href="profile.html?player=RUBEL (4)" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('RUBEL 4', 'XL', '4')">View Profile</button>
                 </div>
             </div>
 
@@ -580,7 +683,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#27</span><br>
-                    <a href="profile.html?player=ASHRAFUL" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('ASHRAFUL', 'XL', '27')">View Profile</button>
                 </div>
             </div>
 
@@ -591,7 +694,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#10</span><br>
-                    <a href="profile.html?player=SHOVO" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SHOVO', 'XL', '10')">View Profile</button>
                 </div>
             </div>
 
@@ -602,7 +705,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#14</span><br>
-                    <a href="profile.html?player=SUJON" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SUJON', 'XL', '14')">View Profile</button>
                 </div>
             </div>
 
@@ -613,7 +716,7 @@
                     <p><strong>Position:</strong> TBD</p>
                     <span class="jersey-size">Size: XL</span>
                     <span class="jersey-number">#21</span><br>
-                    <a href="profile.html?player=SAIFUL" class="profile-btn">View Profile</a>
+                    <button class="profile-btn" onclick="openModal('SAIFUL', 'XL', '21')">View Profile</button>
                 </div>
             </div>
 
@@ -624,6 +727,110 @@
         <p>&copy; 2026 All Rights Reserved <a href="https://sayadbayezid.github.io/Falcon19/" target="_blank">Falcon 19</a> | Karimun Nessa Siddiqui High School.</p>
         <p class="dev-credit">Developed by <a href="https://sayadbayezid.com" target="_blank">Sayad Md Bayezid Hosan</a></p>
     </footer>
+
+
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            
+            <div class="modal-photo">[Photo]</div>
+            <h1 id="modalPlayerName">Player Name</h1>
+            <p><strong>Jersey Number:</strong> <span id="modalJerseyNumber">#00</span></p>
+            <p><strong>Jersey Size:</strong> <span id="modalJerseySize">L</span></p>
+            <p><strong>Position:</strong> TBD</p>
+
+            <button class="share-btn" onclick="copyShareLink()">🔗 Copy Profile Link</button>
+
+            <div class="rating-section">
+                <h3>Rate this Player</h3>
+                <div class="stars">
+                    <input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label>
+                    <input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label>
+                    <input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label>
+                    <input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label>
+                    <input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label>
+                </div>
+                <p id="ratingMessage" style="margin-top: 15px; color: #ffcc00; font-size: 14px; display: none;">Thank you for rating!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check URL on Page Load to open specific player's profile
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const playerParam = urlParams.get('player');
+            
+            if (playerParam) {
+                // Find the button for this player and click it
+                const buttons = document.querySelectorAll('.profile-btn');
+                for (let btn of buttons) {
+                    if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + playerParam + "'")) {
+                        btn.click();
+                        break;
+                    }
+                }
+            }
+        };
+
+        // Modal Open Function
+        function openModal(name, size, number) {
+            document.getElementById('modalPlayerName').innerText = name;
+            document.getElementById('modalJerseySize').innerText = size;
+            document.getElementById('modalJerseyNumber').innerText = "#" + number;
+            
+            // Update URL automatically without reloading the page
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?player=' + encodeURIComponent(name);
+            window.history.pushState({path: newUrl}, '', newUrl);
+
+            // Reset previous ratings
+            const inputs = document.querySelectorAll('.stars input');
+            inputs.forEach(input => input.checked = false);
+            document.getElementById('ratingMessage').style.display = 'none';
+
+            // Show Modal
+            document.getElementById('profileModal').style.display = 'block';
+        }
+
+        // Modal Close Function
+        function closeModal() {
+            document.getElementById('profileModal').style.display = 'none';
+            
+            // Remove ?player= name from URL when closing
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.pushState({path: newUrl}, '', newUrl);
+        }
+
+        // Close when clicking outside of the modal box
+        window.onclick = function(event) {
+            const modal = document.getElementById('profileModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Share Link Function
+        function copyShareLink() {
+            const urlToShare = window.location.href;
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(urlToShare).then(() => {
+                alert("✅ Profile link copied! You can now share it anywhere.");
+            }).catch(err => {
+                alert("Failed to copy link. You can manually copy the URL from your browser.");
+            });
+        }
+
+        // Rating Logic
+        const ratingInputs = document.querySelectorAll('.stars input');
+        ratingInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const messageEl = document.getElementById('ratingMessage');
+                messageEl.style.display = 'block';
+                messageEl.innerText = `You rated ${this.value} Stars! ⭐`;
+            });
+        });
+    </script>
 
 </body>
 </html>
