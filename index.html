@@ -778,6 +778,38 @@
             document.getElementById('modalPlayerName').innerText = name;
             document.getElementById('modalJerseySize').innerText = size;
             document.getElementById('modalJerseyNumber').innerText = "#" + number;
+
+            // Sanitize name for folder path
+            const folderName = name.trim().replace(/[^a-zA-Z0-9_]/g, '_');
+            const photoPath = `players/${folderName}/photo.jpg`;
+            const infoPath = `players/${folderName}/info.txt`;
+
+            // Update Modal Photo
+            const modalPhoto = document.querySelector('.modal-photo');
+            const img = new Image();
+            img.src = photoPath;
+            img.onload = function() {
+                modalPhoto.innerHTML = `<img src="${photoPath}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+            };
+            img.onerror = function() {
+                modalPhoto.innerHTML = `[Photo]`;
+            };
+
+            // Update Position/Info from info.txt if exists
+            fetch(infoPath)
+                .then(response => {
+                    if (response.ok) return response.text();
+                    throw new Error('No info file');
+                })
+                .then(text => {
+                    const positionMatch = text.match(/Position:\s*(.*)/i);
+                    if (positionMatch) {
+                        document.querySelector('#profileModal p:nth-of-type(3)').innerHTML = `<strong>Position:</strong> ${positionMatch[1]}`;
+                    }
+                })
+                .catch(() => {
+                    document.querySelector('#profileModal p:nth-of-type(3)').innerHTML = `<strong>Position:</strong> TBD`;
+                });
             
             // Update URL automatically without reloading the page
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?player=' + encodeURIComponent(name);
